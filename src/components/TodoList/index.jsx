@@ -6,7 +6,25 @@ import { nanoid } from 'nanoid'
 import FormFilterTodo from '../../Forms/FormFilterTodo/index'
 
 class TodoList extends Component {
-	state = { todo, filteredTodo: null }
+	state = { todo: [], filteredTodo: null }
+
+	componentDidMount() {
+		const localData = localStorage.getItem('todo')
+		if (localData && JSON.parse(localData).length) {
+			this.setState({ todo: JSON.parse(localData) })
+		} else this.setState({ todo })
+	}
+
+	componentDidUpdate(_, prevState) {
+		if (prevState.todo.length !== this.state.todo.length) {
+			localStorage.setItem('todo', JSON.stringify(this.state.todo))
+		}
+	}
+
+	updateLocalData = () => {
+		localStorage.setItem('todo', JSON.stringify(this.state.todo))
+	}
+
 	handleDelete = (id) => {
 		this.setState((prev) => ({
 			todo: prev.todo.filter((el) => el.id !== id),
@@ -37,6 +55,24 @@ class TodoList extends Component {
 		}))
 	}
 
+	handleCheck = (id) => {
+		this.setState((prev) => ({
+			todo: prev.todo.map((el) =>
+				el.id === id ? { ...el, completed: !el.completed } : el
+			),
+			// todo: prev.todo.map((el) => {
+			// 	if (el.id === id) {
+			// 		return {
+			// 			...el,
+			// 			completed: !el.completed,
+			// 		}
+			// 	} else {
+			// 		return el
+			// 	}
+			// }),
+		}))
+	}
+
 	render() {
 		return (
 			<div className='container'>
@@ -44,7 +80,13 @@ class TodoList extends Component {
 				<FormFilterTodo filterTodo={this.filterTodo} />
 				<ul className='list-group'>
 					{(this.state.filteredTodo ?? this.state.todo).map((el) => (
-						<Todo todo={el} key={el.id} handleDelete={this.handleDelete} />
+						<Todo
+							todo={el}
+							key={el.id}
+							handleDelete={this.handleDelete}
+							handleCheck={this.handleCheck}
+							updateLocalData={this.updateLocalData}
+						/>
 					))}
 				</ul>
 			</div>
