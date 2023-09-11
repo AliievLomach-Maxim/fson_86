@@ -34,28 +34,43 @@
 
 ### Less 1
 
--   Class Component
+- Class Component
 
--   Events
+- Events
 
-    -   Event delegation
-    -   inLine clb Function
-    -   clb function with context
-        -   public values
-        -   constructor && prototype
-        -   SyntheticEvent Object vs Async
+  - Event delegation
+  - inLine clb Function
+  - clb function with context
+    - public values
+    - constructor && prototype
+    - SyntheticEvent Object vs Async
 
--   State
+- State
 
-    -   update state with setState(update)
-    -   prevState
-    -   upper state
-
+  - update state with setState(update)
+  - prevState
+  - upper state
 
 ### Less 2
 
--   onChange vs control form
--   onSubmit
--   class Form
--   form reset
--   add todo
+- onChange vs control form
+- onSubmit
+- class Form
+- form reset
+- add todo
+
+## Module 3
+
+### Less 1
+
+- Mounting
+- Updating
+- Unmounting
+- componentDidMount
+- componentDidUpdate(prevProps, prevState)
+- componentWillUnmount
+
+- close modal by ESC
+- set data to localStorage
+
+- shouldComponentUpdate vs PureComponent
