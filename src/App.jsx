@@ -2,6 +2,7 @@ import { Component } from 'react'
 import Header from './components/Header/Header'
 import Modal from './components/Modal/Modal'
 import TodoList from './components/TodoList'
+import Products from './components/Products'
 
 class App extends Component {
 	state = { isShowModal: false }
@@ -14,10 +15,11 @@ class App extends Component {
 		return (
 			<>
 				<Header toggleModal={this.toggleModal} />
-				<TodoList />
+				<Products />
+				{/* <TodoList />
 				{this.state.isShowModal && (
 					<Modal toggleModal={this.toggleModal}>Text for Modal</Modal>
-				)}
+				)} */}
 			</>
 		)
 	}
