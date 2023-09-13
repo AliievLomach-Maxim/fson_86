@@ -74,3 +74,16 @@
 - set data to localStorage
 
 - shouldComponentUpdate vs PureComponent
+
+### Less 2
+
+- http how to use
+- architecture
+  - search -> app -> content
+  - validation search with react-hot-toast
+  - componentDidUpdate in content
+  - fetch in content
+  - loading in content
+  - destructuring state
+- http errors
+- pattern stateMachine
