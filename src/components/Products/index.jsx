@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import FormSearchProducts from '../../Forms/FormSearchProducts/index'
+import FormSearchProducts from '../Forms/FormSearchProducts/index'
 import Product from '../Product'
 import { getProductsBySearch } from '../../api/products'
 
