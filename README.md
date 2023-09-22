@@ -107,3 +107,16 @@
 
 - edit class to huk
 - if return
+
+### Less 2
+
+- useMemo <TestUseMemo/>
+- complexCompute <TestUseMemo/>
+- useEffect vs useMemo <TestUseMemo/>
+
+- useCallback <TestUseMemo/>
+
+- Profiler
+
+- useContext
+- Provider
