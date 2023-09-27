@@ -1,39 +1,82 @@
-import { Component } from 'react'
+import React from 'react'
+import { useSearchParams } from 'react-router-dom'
 
-class FormSearchProducts extends Component {
-	state = { value: '' }
+const FormSearchProducts = ({ submit }) => {
+	const [searchParams, setSearchParams] = useSearchParams()
 
-	handleChange = ({ target: { value } }) => {
-		this.setState({ value })
+	const query = searchParams.get('search')
+
+	const handleChange = ({ target: { value } }) => {
+		value ? setSearchParams({ search: value }) : setSearchParams({})
 	}
 
-	handleSubmit = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault()
-		this.props.submit(this.state.value)
+		submit(query)
 	}
-
-	render() {
-		return (
-			<form onSubmit={this.handleSubmit}>
-				<div className='mb-3'>
-					<label htmlFor='exampleInputTodo' className='form-label'>
-						Search products
-					</label>
-					<input
-						name='title'
-						type='text'
-						onChange={this.handleChange}
-						className='form-control'
-						id='exampleInputTodo'
-						value={this.state.value}
-					/>
-				</div>
-				<button className='btn btn-primary mb-3' type='submit'>
-					Search
-				</button>
-			</form>
-		)
-	}
+	return (
+		<form onSubmit={handleSubmit}>
+			<div className='mb-3'>
+				<label htmlFor='exampleInputTodo' className='form-label'>
+					Search products
+				</label>
+				<input
+					name='title'
+					type='text'
+					onChange={handleChange}
+					className='form-control'
+					id='exampleInputTodo'
+					value={query}
+				/>
+			</div>
+			<button className='btn btn-primary mb-3' type='submit'>
+				Search
+			</button>
+		</form>
+	)
 }
 
 export default FormSearchProducts
+// const FormSearchProducts = ({ submit }) => {
+// 	const [value, setValue] = useState('')
+// 	const [searchParams, setSearchParams] = useSearchParams()
+
+// 	const query = searchParams.get('search')
+
+// 	useEffect(() => {
+// 		value !== query && setValue(query)
+// 	}, [query, value])
+
+// 	const handleChange = ({ target: { value } }) => {
+// 		// setValue(value)
+// 		setSearchParams({ search: value })
+// 	}
+
+// 	const handleSubmit = (e) => {
+// 		e.preventDefault()
+// 		const data = searchParams.get('search')
+// 		submit(data)
+// 	}
+// 	return (
+// 		<form onSubmit={handleSubmit}>
+// 			<div className='mb-3'>
+// 				<label htmlFor='exampleInputTodo' className='form-label'>
+// 					Search products
+// 				</label>
+// 				<input
+// 					name='title'
+// 					type='text'
+// 					onChange={handleChange}
+// 					className='form-control'
+// 					id='exampleInputTodo'
+// 					value={value}
+// 				/>
+// 			</div>
+// 			<button className='btn btn-primary mb-3' type='submit'>
+// 				Search
+// 			</button>
+// 		</form>
+// 	)
+// }
+
+// export default FormSearchProducts

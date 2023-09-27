@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const Product = ({ product: { thumbnail, title, description, price, id } }) => {
+	const location = useLocation()
+
 	return (
 		<div className='card' style={{ width: 300 }}>
 			<img src={thumbnail} className='card-img-top' alt='...' />
@@ -9,7 +11,11 @@ const Product = ({ product: { thumbnail, title, description, price, id } }) => {
 				<p className='card-text'>{description}</p>
 			</div>
 			<button className='btn btn-success'>{price}</button>
-			<Link to={id.toString()}>Details</Link>
+			{!location.state && (
+				<Link to={id.toString()} state={location}>
+					Details
+				</Link>
+			)}
 		</div>
 	)
 }

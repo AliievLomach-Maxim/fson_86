@@ -1,13 +1,21 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import FormSearchProducts from '../Forms/FormSearchProducts/index'
 import Product from '../Product'
 import { getProductsBySearch } from '../../api/products'
+import { useSearchParams } from 'react-router-dom'
+// import { useSearchParams } from 'react-router-dom'
 
 const Products = () => {
 	const [error, setError] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 	const [products, setProducts] = useState(null)
 	const [searchQuery, setSearchQuery] = useState('')
+
+	const [searchParams] = useSearchParams()
+
+	const query = searchParams.get('search')
+
+	const ref = useRef(query)
 
 	const handleSetSearchQuery = (value) => {
 		setSearchQuery(value)
@@ -24,22 +32,26 @@ const Products = () => {
 		)
 	}, [products])
 
-	const fetchProducts = useCallback(async () => {
+	const fetchProducts = useCallback(async (searchText) => {
 		try {
 			setIsLoading(true)
 			setProducts(null)
-			const data = await getProductsBySearch(searchQuery)
+			const data = await getProductsBySearch(searchText)
 			setProducts(data.products)
 		} catch (error) {
 			setError(error.response.data)
 		} finally {
 			setIsLoading(false)
 		}
-	}, [searchQuery])
+	}, [])
 
 	useEffect(() => {
-		searchQuery && fetchProducts()
+		searchQuery && fetchProducts(searchQuery)
 	}, [fetchProducts, searchQuery])
+
+	useEffect(() => {
+		ref.current && fetchProducts(ref.current)
+	}, [fetchProducts])
 
 	return (
 		<>
