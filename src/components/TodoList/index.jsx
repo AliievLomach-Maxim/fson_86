@@ -6,38 +6,53 @@ import FormCreateTodo from '../Forms/FormCreateTodo'
 import FormFilterTodo from '../Forms/FormFilterTodo'
 import todoData from '../../data.json'
 import { nanoid } from 'nanoid'
+import { useSelector, useDispatch } from 'react-redux'
+import { CREATE_TODO } from '../../store/todo/types'
 
 const TodoList = () => {
-	const [todo, setTodo] = useState(null)
+	// const [todo, setTodo] = useState(null)
+	const { todo } = useSelector((store) => store.todo)
+
+	const dispatch = useDispatch()
+
 	const [filteredTodo, setFilteredTodo] = useState(null)
 
-	useEffect(() => {
-		const localData = localStorage.getItem('todo')
-		localData && JSON.parse(localData).length
-			? setTodo(JSON.parse(localData))
-			: setTodo(todoData)
-	}, [])
+	// useEffect(() => {
+	// 	const localData = localStorage.getItem('todo')
+	// 	localData && JSON.parse(localData).length
+	// 		? setTodo(JSON.parse(localData))
+	// 		: setTodo(todoData)
+	// }, [])
 
-	useEffect(() => {
-		todo && localStorage.setItem('todo', JSON.stringify(todo))
-	}, [todo])
+	// useEffect(() => {
+	// 	todo && localStorage.setItem('todo', JSON.stringify(todo))
+	// }, [todo])
 
 	const handleClick = () => {
 		this.setState({ isShowTodos: true })
 	}
 
-	const handleDelete = (id) => {
-		setTodo((prev) => prev.filter((el) => el.id !== id))
-	}
+	// const handleDelete = (id) => {
+	// 	setTodo((prev) => prev.filter((el) => el.id !== id))
+	// }
 
 	const createTodo = (dataByForm) => {
-		const newTodo = {
-			...dataByForm,
-			id: nanoid(),
-			completed: false,
-		}
-		setTodo((prev) => [...prev, newTodo])
+		// const newTodo = {
+		// 	...dataByForm,
+		// 	id: nanoid(),
+		// 	completed: false,
+		// }
+		// setTodo((prev) => [...prev, newTodo])
+		dispatch(createTodo(dataByForm))
 	}
+	// const createTodo = (dataByForm) => {
+	// 	const newTodo = {
+	// 		...dataByForm,
+	// 		id: nanoid(),
+	// 		completed: false,
+	// 	}
+	// 	setTodo((prev) => [...prev, newTodo])
+	// }
 
 	const filterTodo = (filterQuery) => {
 		setFilteredTodo(
@@ -47,13 +62,13 @@ const TodoList = () => {
 		)
 	}
 
-	const handleCheck = (id) => {
-		setTodo((prev) =>
-			prev.map((el) =>
-				el.id === id ? { ...el, completed: !el.completed } : el
-			)
-		)
-	}
+	// const handleCheck = (id) => {
+	// 	setTodo((prev) =>
+	// 		prev.map((el) =>
+	// 			el.id === id ? { ...el, completed: !el.completed } : el
+	// 		)
+	// 	)
+	// }
 
 	return (
 		<div className='container'>
@@ -68,8 +83,8 @@ const TodoList = () => {
 						<Todo
 							todo={el}
 							key={el.id}
-							handleDelete={handleDelete}
-							handleCheck={handleCheck}
+							// handleDelete={handleDelete}
+							// handleCheck={handleCheck}
 						/>
 					))}
 				</ul>
