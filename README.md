@@ -138,3 +138,33 @@
 - BackBtn with useLocation
 - location.state
 - lazy & suspense
+
+## Module 6
+
+### Less 1
+
+- how it works
+- install redux
+
+- function createStore
+- function reducer
+- reducer default value
+- getState
+- dispatch
+- switch
+
+- redux connect to react
+- install react-redux
+- Provider
+
+- useSelector
+- useDispatch
+- set step
+- ...state
+
+- reducer.js
+- actions.js
+- types.js
+
+- initialState
+- combineReducer

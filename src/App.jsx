@@ -5,6 +5,7 @@ import ProductsPage from './pages/ProductsPage'
 import Layout from './Layout'
 // import ProductsPageDetails from './pages/ProductsPage/ProductsPageDetails'
 import { Suspense, lazy } from 'react'
+import './store/store'
 
 const ProductsPageDetails = lazy(() =>
 	import('./pages/ProductsPage/ProductsPageDetails')

@@ -3,13 +3,13 @@ import { Component } from 'react'
 class Todo extends Component {
 	render() {
 		const {
-			todo: { id, todo, completed },
+			todo: { id, title, completed },
 			handleCheck,
 			handleDelete,
 		} = this.props
 		return (
 			<li className='list-group-item d-flex justify-content-between'>
-				<h5>title:{todo}</h5>
+				<h5>title:{title}</h5>
 				<div className='d-flex'>
 					<div className='form-check'>
 						<input
