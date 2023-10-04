@@ -1,4 +1,0 @@
-import { CREATE_TODO } from './types'
-
-export const createTodo = (value) => ({ type: CREATE_TODO, payload: value })
-// export const deleteTodo = (value) => ({ type: DELETE_TODO, payload: value })
