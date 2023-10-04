@@ -15,11 +15,11 @@ class Todo extends Component {
 						<input
 							className='form-check-input'
 							type='checkbox'
-							id='flexCheckChecked'
+							id={id}
 							checked={completed}
 							onChange={() => handleCheck(id)}
 						/>
-						<label className='form-check-label' htmlFor='flexCheckChecked'>
+						<label className='form-check-label' htmlFor={id}>
 							completed
 						</label>
 					</div>

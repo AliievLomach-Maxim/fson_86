@@ -1,58 +1,27 @@
-import { Component, useEffect, useState } from 'react'
+import { useState } from 'react'
 import Todo from '../Todo'
-
-import { getAllTodo } from '../../api/todo'
 import FormCreateTodo from '../Forms/FormCreateTodo'
 import FormFilterTodo from '../Forms/FormFilterTodo'
-import todoData from '../../data.json'
-import { nanoid } from 'nanoid'
 import { useSelector, useDispatch } from 'react-redux'
-import { CREATE_TODO } from '../../store/todo/types'
+import {
+	createTodoAction,
+	deleteTodo,
+	updateTodo,
+} from '../../store/todo/slice'
+// import { createTodoAction } from '../../store/todo/actions'
 
 const TodoList = () => {
-	// const [todo, setTodo] = useState(null)
 	const { todo } = useSelector((store) => store.todo)
-
 	const dispatch = useDispatch()
-
 	const [filteredTodo, setFilteredTodo] = useState(null)
 
-	// useEffect(() => {
-	// 	const localData = localStorage.getItem('todo')
-	// 	localData && JSON.parse(localData).length
-	// 		? setTodo(JSON.parse(localData))
-	// 		: setTodo(todoData)
-	// }, [])
-
-	// useEffect(() => {
-	// 	todo && localStorage.setItem('todo', JSON.stringify(todo))
-	// }, [todo])
-
-	const handleClick = () => {
-		this.setState({ isShowTodos: true })
+	const handleDelete = (id) => {
+		dispatch(deleteTodo(id))
 	}
-
-	// const handleDelete = (id) => {
-	// 	setTodo((prev) => prev.filter((el) => el.id !== id))
-	// }
 
 	const createTodo = (dataByForm) => {
-		// const newTodo = {
-		// 	...dataByForm,
-		// 	id: nanoid(),
-		// 	completed: false,
-		// }
-		// setTodo((prev) => [...prev, newTodo])
-		dispatch(createTodo(dataByForm))
+		dispatch(createTodoAction(dataByForm))
 	}
-	// const createTodo = (dataByForm) => {
-	// 	const newTodo = {
-	// 		...dataByForm,
-	// 		id: nanoid(),
-	// 		completed: false,
-	// 	}
-	// 	setTodo((prev) => [...prev, newTodo])
-	// }
 
 	const filterTodo = (filterQuery) => {
 		setFilteredTodo(
@@ -62,19 +31,12 @@ const TodoList = () => {
 		)
 	}
 
-	// const handleCheck = (id) => {
-	// 	setTodo((prev) =>
-	// 		prev.map((el) =>
-	// 			el.id === id ? { ...el, completed: !el.completed } : el
-	// 		)
-	// 	)
-	// }
+	const handleCheck = (id) => {
+		dispatch(updateTodo(id))
+	}
 
 	return (
 		<div className='container'>
-			<button className='btn btn-success' onClick={handleClick}>
-				Show all todo's
-			</button>
 			<FormCreateTodo createTodo={createTodo} />
 			<FormFilterTodo filterTodo={filterTodo} />
 			{todo && (
@@ -83,8 +45,8 @@ const TodoList = () => {
 						<Todo
 							todo={el}
 							key={el.id}
-							// handleDelete={handleDelete}
-							// handleCheck={handleCheck}
+							handleDelete={handleDelete}
+							handleCheck={handleCheck}
 						/>
 					))}
 				</ul>
