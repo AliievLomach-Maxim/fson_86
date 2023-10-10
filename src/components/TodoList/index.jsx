@@ -1,11 +1,7 @@
-import { Component, useEffect, useState } from 'react'
+import { useState } from 'react'
 import Todo from '../Todo'
-
-import { getAllTodo } from '../../api/todo'
 import FormCreateTodo from '../Forms/FormCreateTodo'
 import FormFilterTodo from '../Forms/FormFilterTodo'
-import todoData from '../../data.json'
-import { nanoid } from 'nanoid'
 import { useSelector, useDispatch } from 'react-redux'
 import {
 	createTodoAction,
@@ -16,11 +12,8 @@ import { getAllProducts } from '../../store/products/slice'
 // import { createTodoAction } from '../../store/todo/actions'
 
 const TodoList = () => {
-	// const [todo, setTodo] = useState(null)
 	const { todo } = useSelector((store) => store.todo)
-
 	const dispatch = useDispatch()
-
 	const [filteredTodo, setFilteredTodo] = useState(null)
 
 	// useEffect(() => {
@@ -38,27 +31,13 @@ const TodoList = () => {
 	// 	this.setState({ isShowTodos: true })
 	// }
 
-	// const handleDelete = (id) => {
-	// 	setTodo((prev) => prev.filter((el) => el.id !== id))
-	// }
+	const handleDelete = (id) => {
+		dispatch(deleteTodo(id))
+	}
 
 	const createTodo = (dataByForm) => {
-		// const newTodo = {
-		// 	...dataByForm,
-		// 	id: nanoid(),
-		// 	completed: false,
-		// }
-		// setTodo((prev) => [...prev, newTodo])
-		dispatch(createTodo(dataByForm))
+		dispatch(createTodoAction(dataByForm))
 	}
-	// const createTodo = (dataByForm) => {
-	// 	const newTodo = {
-	// 		...dataByForm,
-	// 		id: nanoid(),
-	// 		completed: false,
-	// 	}
-	// 	setTodo((prev) => [...prev, newTodo])
-	// }
 
 	const filterTodo = (filterQuery) => {
 		setFilteredTodo(
@@ -68,13 +47,9 @@ const TodoList = () => {
 		)
 	}
 
-	// const handleCheck = (id) => {
-	// 	setTodo((prev) =>
-	// 		prev.map((el) =>
-	// 			el.id === id ? { ...el, completed: !el.completed } : el
-	// 		)
-	// 	)
-	// }
+	const handleCheck = (id) => {
+		dispatch(updateTodo(id))
+	}
 
 	const handleClick = () => {
 		dispatch(getAllProducts())
@@ -91,8 +66,8 @@ const TodoList = () => {
 						<Todo
 							todo={el}
 							key={el.id}
-							// handleDelete={handleDelete}
-							// handleCheck={handleCheck}
+							handleDelete={handleDelete}
+							handleCheck={handleCheck}
 						/>
 					))}
 				</ul>

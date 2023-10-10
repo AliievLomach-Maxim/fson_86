@@ -1,5 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
+
 import { reducer } from './reducer'
+import { configureStore } from '@reduxjs/toolkit'
+import { persistStore } from 'redux-persist'
+// import storage from 'redux-persist/lib/storage'
+
 
 // store.dispatch({ type: 'updateNumber', payload: 10 })
 // console.log('store :>> ', store.getState())
@@ -25,4 +29,4 @@ export const store = configureStore({
 	// middleware: [customMiddleware],
 })
 
-// const [first, setfirst] = useState()
+export const persistor = persistStore(store)
