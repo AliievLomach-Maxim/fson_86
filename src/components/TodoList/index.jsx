@@ -8,12 +8,28 @@ import {
 	deleteTodo,
 	updateTodo,
 } from '../../store/todo/slice'
+import { getAllProducts } from '../../store/products/slice'
 // import { createTodoAction } from '../../store/todo/actions'
 
 const TodoList = () => {
 	const { todo } = useSelector((store) => store.todo)
 	const dispatch = useDispatch()
 	const [filteredTodo, setFilteredTodo] = useState(null)
+
+	// useEffect(() => {
+	// 	const localData = localStorage.getItem('todo')
+	// 	localData && JSON.parse(localData).length
+	// 		? setTodo(JSON.parse(localData))
+	// 		: setTodo(todoData)
+	// }, [])
+
+	// useEffect(() => {
+	// 	todo && localStorage.setItem('todo', JSON.stringify(todo))
+	// }, [todo])
+
+	// const handleClick = () => {
+	// 	this.setState({ isShowTodos: true })
+	// }
 
 	const handleDelete = (id) => {
 		dispatch(deleteTodo(id))
@@ -35,8 +51,13 @@ const TodoList = () => {
 		dispatch(updateTodo(id))
 	}
 
+	const handleClick = () => {
+		dispatch(getAllProducts())
+	}
+
 	return (
 		<div className='container'>
+			<button onClick={handleClick}>thunk</button>
 			<FormCreateTodo createTodo={createTodo} />
 			<FormFilterTodo filterTodo={filterTodo} />
 			{todo && (
