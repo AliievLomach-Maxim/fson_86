@@ -10,3 +10,13 @@ export const getSingleProduct = async (id) => {
 	const { data } = await axios(`products/${id}`)
 	return data
 }
+
+export const removeProduct = async (id) => {
+	const { data } = await axios.delete(`products/${id}`)
+	return data
+}
+
+export const getProducts = async () => {
+	const { data } = await axios('produ')
+	return data
+}

@@ -7,7 +7,13 @@ import FormFilterTodo from '../Forms/FormFilterTodo'
 import todoData from '../../data.json'
 import { nanoid } from 'nanoid'
 import { useSelector, useDispatch } from 'react-redux'
-import { CREATE_TODO } from '../../store/todo/types'
+import {
+	createTodoAction,
+	deleteTodo,
+	updateTodo,
+} from '../../store/todo/slice'
+import { getAllProducts } from '../../store/products/slice'
+// import { createTodoAction } from '../../store/todo/actions'
 
 const TodoList = () => {
 	// const [todo, setTodo] = useState(null)
@@ -28,9 +34,9 @@ const TodoList = () => {
 	// 	todo && localStorage.setItem('todo', JSON.stringify(todo))
 	// }, [todo])
 
-	const handleClick = () => {
-		this.setState({ isShowTodos: true })
-	}
+	// const handleClick = () => {
+	// 	this.setState({ isShowTodos: true })
+	// }
 
 	// const handleDelete = (id) => {
 	// 	setTodo((prev) => prev.filter((el) => el.id !== id))
@@ -70,11 +76,13 @@ const TodoList = () => {
 	// 	)
 	// }
 
+	const handleClick = () => {
+		dispatch(getAllProducts())
+	}
+
 	return (
 		<div className='container'>
-			<button className='btn btn-success' onClick={handleClick}>
-				Show all todo's
-			</button>
+			<button onClick={handleClick}>thunk</button>
 			<FormCreateTodo createTodo={createTodo} />
 			<FormFilterTodo filterTodo={filterTodo} />
 			{todo && (
