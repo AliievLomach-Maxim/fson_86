@@ -17,6 +17,6 @@ export const removeProduct = async (id) => {
 }
 
 export const getProducts = async () => {
-	const { data } = await axios('produ')
+	const { data } = await axios('products')
 	return data
 }

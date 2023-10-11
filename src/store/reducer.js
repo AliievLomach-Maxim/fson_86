@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
-import { reducerTodo } from './todo/reducer'
 
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
 import { productsReducer } from './products/slice'
+import { reducerTodo } from './todoWithReducers/reducer'
+import { userReducer } from './users/slice'
+import { appReducer } from './appState/slice'
 
 const persistConfig = {
 	key: 'root',
@@ -30,4 +32,6 @@ export const reducer = {
 	todo: persistedReducer,
 	other: persistedReducer2,
 	products: productsReducer,
+	users: userReducer,
+	appState: appReducer,
 }

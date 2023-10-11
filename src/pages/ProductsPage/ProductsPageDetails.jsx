@@ -44,7 +44,7 @@ const ProductsPageDetails = () => {
 			{error && { error }}
 			{/* {singleProduct && singleProduct.price === 25 ? ( */}
 			{singleProduct && <Product product={singleProduct} />}
-			{/* // ) : ( // <Navigate to='/home' />
+			{/* // ) : ( // <Navigate to='/' />
 			// )} */}
 		</SkeletonTheme>
 	)
