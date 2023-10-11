@@ -1,68 +1,41 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import FormSearchProducts from '../Forms/FormSearchProducts/index'
+import { useEffect, useState } from 'react'
 import Product from '../Product'
-import { getProductsBySearch } from '../../api/products'
-import { useSearchParams } from 'react-router-dom'
-// import { useSearchParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllProducts } from '../../store/products/thunks'
+import FormSearchProducts from '../Forms/FormSearchProducts/index'
+import {
+	selector,
+	selectorFilteredProducts,
+} from '../../store/products/selectors'
+import { setFilterAction } from '../../store/products/slice'
 
 const Products = () => {
-	const [error, setError] = useState('')
-	const [isLoading, setIsLoading] = useState(false)
-	const [products, setProducts] = useState(null)
-	const [searchQuery, setSearchQuery] = useState('')
+	const dispatch = useDispatch()
 
-	const [searchParams] = useSearchParams()
+	const { isLoading, error } = useSelector(selector)
+	const filteredProducts = useSelector(selectorFilteredProducts)
+	const [counter, setCounter] = useState(0)
 
-	const query = searchParams.get('search')
+	useEffect(() => {
+		!filteredProducts && dispatch(getAllProducts())
+	}, [dispatch, filteredProducts])
 
-	const ref = useRef(query)
-
-	const handleSetSearchQuery = (value) => {
-		setSearchQuery(value)
+	const handleSetSearchQuery = (e) => {
+		console.log('e :>> ', e)
+		dispatch(setFilterAction(e ?? ''))
 	}
-
-	const sortedProducts = useMemo(() => {
-		return (
-			products &&
-			products.toSorted((a, b) => {
-				console.log('sorting')
-				for (let i = 0; i < 10000000; i++) {}
-				return a.price - b.price
-			})
-		)
-	}, [products])
-
-	const fetchProducts = useCallback(async (searchText) => {
-		try {
-			setIsLoading(true)
-			setProducts(null)
-			const data = await getProductsBySearch(searchText)
-			setProducts(data.products)
-		} catch (error) {
-			setError(error.response.data)
-		} finally {
-			setIsLoading(false)
-		}
-	}, [])
-
-	useEffect(() => {
-		searchQuery && fetchProducts(searchQuery)
-	}, [fetchProducts, searchQuery])
-
-	useEffect(() => {
-		ref.current && fetchProducts(ref.current)
-	}, [fetchProducts])
 
 	return (
 		<>
+			<button onClick={() => setCounter((prev) => prev + 1)}>{counter}</button>
 			{error && <h1>{error}</h1>}
 			<FormSearchProducts submit={handleSetSearchQuery} />
 			{isLoading && <h1>Loading...</h1>}
-			{sortedProducts &&
-				(!sortedProducts.length ? (
+			{filteredProducts &&
+				(!filteredProducts.length ? (
 					<h1>No data found</h1>
 				) : (
-					sortedProducts.map((product) => (
+					filteredProducts.map((product) => (
 						<div key={product.id} className='container mt-3'>
 							<Product product={product} />
 						</div>

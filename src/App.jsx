@@ -6,6 +6,8 @@ import Layout from './Layout'
 // import ProductsPageDetails from './pages/ProductsPage/ProductsPageDetails'
 import { Suspense, lazy } from 'react'
 import './store/store'
+import UsersPage from './pages/UsersPage'
+import Loader from './components/Loader'
 
 const ProductsPageDetails = lazy(() =>
 	import('./pages/ProductsPage/ProductsPageDetails')
@@ -13,25 +15,30 @@ const ProductsPageDetails = lazy(() =>
 
 const App = () => {
 	return (
-		<Routes>
-			<Route path='/home' element={<Layout />}>
-				<Route index element={<HomePage />} />
-				<Route path='todos' element={<TodoPage />} />
-				<Route path='products' element={<ProductsPage />} />
-				<Route
-					path='products/:productId'
-					element={
-						<Suspense fallback={'Loading.....'}>
-							<ProductsPageDetails />
-						</Suspense>
-					}
-				/>
-				{/* <Route path='products' element={<ProductsPage />}>
+		<>
+			<Loader />
+
+			<Routes>
+				<Route path='/' element={<Layout />}>
+					<Route index element={<HomePage />} />
+					<Route path='todos' element={<TodoPage />} />
+					<Route path='users' element={<UsersPage />} />
+					<Route path='products' element={<ProductsPage />} />
+					<Route
+						path='products/:productId'
+						element={
+							<Suspense fallback={'Loading.....'}>
+								<ProductsPageDetails />
+							</Suspense>
+						}
+					/>
+					{/* <Route path='products' element={<ProductsPage />}>
 					<Route path=':productId' element={<ProductsPageDetails />} />
 				</Route> */}
-			</Route>
-			<Route path='/products' element={<ProductsPage />} />
-		</Routes>
+				</Route>
+				<Route path='/products' element={<ProductsPage />} />
+			</Routes>
+		</>
 	)
 }
 
