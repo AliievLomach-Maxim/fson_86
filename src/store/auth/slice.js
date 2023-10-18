@@ -19,7 +19,6 @@ const handleAuthFulfilled = (state, { payload }) => {
 const handleUpdateProfileFulfilled = (state, { payload }) => {
 	state.profile = payload
 }
-
 const authSlice = createSlice({
 	name: 'auth',
 	initialState,

@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 
+import { Link } from 'react-router-dom'
 const FormRegistration = ({ registration }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()

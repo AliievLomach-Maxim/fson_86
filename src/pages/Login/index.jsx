@@ -1,3 +1,4 @@
+
 import FormLogin from '../../components/Forms/FormLogin'
 import { useDispatch } from 'react-redux'
 import { loginThunk } from '../../store/auth/thunks'
@@ -25,7 +26,6 @@ const Login = () => {
 			toast.error(error.error, { duration: 3000, position: 'top-right' })
 		}
 	}
-
 	return <FormLogin login={login} />
 }
 
