@@ -31,3 +31,8 @@ export const refresh = async () => {
 	setToken(data.token)
 	return data
 }
+
+export const updateProfile = async ({ id, body }) => {
+	const { data } = await instance.put(`users/${id}`, body)
+	return data
+}

@@ -10,7 +10,9 @@ const FormLogin = ({ login }) => {
 		})
 	}
 	return (
-		<div className='card p-5 mx-auto' style={{ width: 500 }}>
+		<div className='card p-5 mx-auto mt-5' style={{ width: 500 }}>
+			<Link to='/'>Back to home</Link>
+
 			<form onSubmit={handleSubmit}>
 				<div className='mb-3'>
 					<label htmlFor='exampleInputEmail1' className='form-label'>

@@ -1,23 +1,31 @@
-import { useNavigate } from 'react-router-dom'
+
 import FormLogin from '../../components/Forms/FormLogin'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { loginThunk } from '../../store/auth/thunks'
-import { authSelector } from '../../store/auth/selector'
-import { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 const Login = () => {
-	const isAuth = useSelector(authSelector)
 	const dispatch = useDispatch()
-	const navigate = useNavigate()
 
-	const login = (body) => {
-		dispatch(loginThunk(body))
+	// const login = (body) => {
+	// 	dispatch(loginThunk(body))
+	// 		.unwrap()
+	// 		.then(() =>
+	// 			toast.success('Welcome', { duration: 3000, position: 'top-right' })
+	// 		)
+	// 		.catch((error) =>
+	// 			toast.error(error.error, { duration: 3000, position: 'top-right' })
+	// 		)
+	// }
+
+	const login = async (body) => {
+		try {
+			await dispatch(loginThunk(body)).unwrap()
+			toast.success('Welcome', { duration: 3000, position: 'top-right' })
+		} catch (error) {
+			toast.error(error.error, { duration: 3000, position: 'top-right' })
+		}
 	}
-
-	useEffect(() => {
-		isAuth && navigate('/')
-	}, [isAuth, navigate])
-
 	return <FormLogin login={login} />
 }
 
