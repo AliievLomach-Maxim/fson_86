@@ -8,36 +8,61 @@ import { Suspense, lazy } from 'react'
 import './store/store'
 import UsersPage from './pages/UsersPage'
 import Loader from './components/Loader'
+import PrivateRoute from './guards/PrivateRoute'
+import PublicRoute from './guards/PublicRoute'
+import { Toaster } from 'react-hot-toast'
 
 const ProductsPageDetails = lazy(() =>
 	import('./pages/ProductsPage/ProductsPageDetails')
 )
+const ProfilePage = lazy(() => import('./pages/ProfilePage'))
+const Login = lazy(() => import('./pages/Login'))
+const Registration = lazy(() => import('./pages/Registration/index'))
 
 const App = () => {
 	return (
 		<>
 			<Loader />
+			<Toaster />
 
-			<Routes>
-				<Route path='/' element={<Layout />}>
-					<Route index element={<HomePage />} />
-					<Route path='todos' element={<TodoPage />} />
-					<Route path='users' element={<UsersPage />} />
-					<Route path='products' element={<ProductsPage />} />
+			<Suspense fallback={'Loading.....'}>
+				<Routes>
+					<Route path='/' element={<Layout />}>
+						<Route index element={<HomePage />} />
+						<Route path='profile' element={<ProfilePage />} />
+						<Route path='todos' element={<TodoPage />} />
+						<Route
+							path='users'
+							element={
+								<PrivateRoute>
+									<UsersPage />
+								</PrivateRoute>
+							}
+						/>
+						<Route path='products' element={<ProductsPage />} />
+						<Route
+							path='products/:productId'
+							element={<ProductsPageDetails />}
+						/>
+					</Route>
 					<Route
-						path='products/:productId'
+						path='/login'
 						element={
-							<Suspense fallback={'Loading.....'}>
-								<ProductsPageDetails />
-							</Suspense>
+							<PublicRoute>
+								<Login />
+							</PublicRoute>
 						}
 					/>
-					{/* <Route path='products' element={<ProductsPage />}>
-					<Route path=':productId' element={<ProductsPageDetails />} />
-				</Route> */}
-				</Route>
-				<Route path='/products' element={<ProductsPage />} />
-			</Routes>
+					<Route
+						path='/registration'
+						element={
+							<PublicRoute>
+								<Registration />
+							</PublicRoute>
+						}
+					/>
+				</Routes>
+			</Suspense>
 		</>
 	)
 }

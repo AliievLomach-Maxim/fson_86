@@ -1,5 +1,5 @@
 import axios from 'axios'
-axios.defaults.baseURL = 'https://dummyjson.com/'
+axios.defaults.baseURL = 'https://practices-api.vercel.app/'
 
 export const getUsers = async () => {
 	const { data } = await axios('users')
